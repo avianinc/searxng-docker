@@ -1,11 +1,25 @@
-# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
 use_default_settings: true
 server:
-  # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
-  secret_key: "ultrasecretkey"  # change this!
-  limiter: true  # can be disabled for a private instance
+  secret_key: "17bf38e5cfef6e847b9514d8d921b9f8166c6f497fdef12b607aa11fb4db1c12"
+  limiter: false
   image_proxy: true
+  allowed_hosts:
+    - "localhost"
+    - "127.0.0.1"
+    - "host.docker.internal"
+    - "searxng"
+    - "[::1]"
+    - "192.168.32.5"  # IP address of the searxng container
+    - "192.168.32.3"  # IP address of the open_web_app container
 ui:
   static_use_hash: true
 redis:
   url: redis://redis:6379/0
+
+# remove format to deny access, use lower case. 
+# !!!has to be set or returns 404 error!!!
+# formats: [html, csv, json, rss]
+search:
+    formats:
+        - html
+        - json
